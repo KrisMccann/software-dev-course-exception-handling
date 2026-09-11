@@ -57,11 +57,24 @@ while (true) {
     if (action === "add") {
         let animal = readlineSync.question("Enter the animal's name: ");
         let fee = Number(readlineSync.question("Enter the adoption fee: "));
+
+        try {
+            
         addAnimal(animal, fee);
         console.log(`${animal} added with a fee of $${fee}.`);
+
+        } catch (error) {
+            console.log("Error:", error.message);
+        }
+        
     } else if (action === "fee") {
         let animal = readlineSync.question("Enter the animal's name to find its adoption fee: ");
-        console.log(`${animal}'s adoption fee is $${getAdoptionFee(animal)}.`);
+
+        try {
+           console.log(`${animal}'s adoption fee is $${getAdoptionFee(animal)}.`);   
+        } catch (error){
+            console.log("Error:", error.message);
+        }
     } else {
         console.log("Invalid action. Please choose 'add', 'fee', or 'exit'.");
     }
@@ -82,3 +95,5 @@ Code Flow Problems:
 Structured Exception Handling:
   Add try/catch blocks to handle the above errors gracefully.
 */
+
+// 1. I encountered errors when the animal name was left blank, when a negative adoption fee was entered, and when searching for an animal that was not in the records. The blank name and negative fee caused an “Invalid animal name or adoption fee!” error in the addAnimal() function. Searching for an animal that was not added caused an “Animal not found in records!” error in the getAdoptionFee() function. Each error caused the program to stop running because there were no try/catch blocks handling them.
